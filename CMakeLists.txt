@@ -30,9 +30,8 @@ find_package(glog REQUIRED)
 
 add_library(${PROJECT_NAME} SHARED ${SRCS_BRISK} ${SRCS_AGAST})
 target_include_directories(${PROJECT_NAME} PUBLIC 
-	"${PROJECT_SOURCE_DIR}/brisk/include/brisk"
+	"${PROJECT_SOURCE_DIR}/brisk/include"
 	"${PROJECT_SOURCE_DIR}/agast/include"
-	"${PROJECT_SOURCE_DIR}/agast/include/agast"
 )
 
 target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBRARIES} glog::glog)
