@@ -46,14 +46,26 @@ install(TARGETS ${PROJECT_NAME}
         
 install(DIRECTORY
 	"${PROJECT_SOURCE_DIR}/brisk/include/brisk"
-	"${PROJECT_SOURCE_DIR}/brisk/include/brisk/cameras"
-	"${PROJECT_SOURCE_DIR}/brisk/include/brisk/cameras/implementation"
-	"${PROJECT_SOURCE_DIR}/brisk/include/brisk/internal"
-	"${PROJECT_SOURCE_DIR}/agast/include"
 	"${PROJECT_SOURCE_DIR}/agast/include/agast"
+        DESTINATION  ${CMAKE_INSTALL_PREFIX}/include
+        FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp")
+
+install(DIRECTORY
+	"${PROJECT_SOURCE_DIR}/brisk/include/brisk/cameras"
+	"${PROJECT_SOURCE_DIR}/brisk/include/brisk/internal"
         DESTINATION  ${CMAKE_INSTALL_PREFIX}/include/brisk
         FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp")
         
+install(DIRECTORY
+	"${PROJECT_SOURCE_DIR}/brisk/include/brisk/cameras/implementation"
+        DESTINATION  ${CMAKE_INSTALL_PREFIX}/include/brisk/cameras
+        FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp") 
+        
+install(DIRECTORY
+	"${PROJECT_SOURCE_DIR}/agast/include/agast/internal"
+        DESTINATION  ${CMAKE_INSTALL_PREFIX}/include/agast
+        FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp")          
+                      
 install(FILES "${PROJECT_BINARY_DIR}/briskConfig.cmake" 
   DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/cmake/brisk/)  
   
