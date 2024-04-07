@@ -23,9 +23,10 @@ set(SRCS_BRISK
                                brisk/src/test/image-io.cc
                                brisk/src/timer.cc
   )
-
-
 file(GLOB SRCS_AGAST  "${PROJECT_SOURCE_DIR}/agast/src/*.cc")
+
+file(GLOB HDRS_BRISK  "${PROJECT_SOURCE_DIR}/brisk/include/*.h " )
+file(GLOB HDRS_AGAST  "${PROJECT_SOURCE_DIR}/agast/include/*.h " "${PROJECT_SOURCE_DIR}/agast/include/agast")
 
 find_package(OpenCV REQUIRED)
 find_package(glog REQUIRED)
@@ -48,10 +49,8 @@ install(TARGETS ${PROJECT_NAME}
         ARCHIVE DESTINATION  ${CMAKE_INSTALL_PREFIX}/lib)
         
 install(DIRECTORY
-	"${PROJECT_SOURCE_DIR}/brisk/include"
-	"${PROJECT_SOURCE_DIR}/agast/include"
-	"${PROJECT_SOURCE_DIR}/agast/include/agast"
-	
+	${HDRS_BRISK}
+	${HDRS_AGAST}	
         DESTINATION  ${CMAKE_INSTALL_PREFIX}/include/brisk
         FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp")
         
