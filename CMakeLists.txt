@@ -25,15 +25,20 @@ set(SRCS_BRISK
   )
 file(GLOB SRCS_AGAST  "${PROJECT_SOURCE_DIR}/agast/src/*.cc")
 
-file(GLOB HDRS_BRISK  "${PROJECT_SOURCE_DIR}/brisk/include/*.h " )
-file(GLOB HDRS_AGAST  "${PROJECT_SOURCE_DIR}/agast/include/*.h " "${PROJECT_SOURCE_DIR}/agast/include/agast")
-
+file(GLOB HDRS_BRISK   "${PROJECT_SOURCE_DIR}/brisk/include/brisk/*.h "
+			"${PROJECT_SOURCE_DIR}/brisk/include/brisk/cameras/*.h "
+			"${PROJECT_SOURCE_DIR}/brisk/include/brisk/cameras/implementation/*.h "
+			"${PROJECT_SOURCE_DIR}/brisk/include/brisk/internal/*.h "
+			 )
+file(GLOB HDRS_AGAST  "${PROJECT_SOURCE_DIR}/agast/include/*.h " "
+			${PROJECT_SOURCE_DIR}/agast/include/agast")
+	
 find_package(OpenCV REQUIRED)
 find_package(glog REQUIRED)
 
 add_library(${PROJECT_NAME} SHARED ${SRCS_BRISK} ${SRCS_AGAST})
 target_include_directories(${PROJECT_NAME} PUBLIC 
-	"${PROJECT_SOURCE_DIR}/brisk/include"
+	"${PROJECT_SOURCE_DIR}/brisk/include/brisk"
 	"${PROJECT_SOURCE_DIR}/agast/include"
 	"${PROJECT_SOURCE_DIR}/agast/include/agast"
 )
