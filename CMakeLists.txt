@@ -45,7 +45,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 
 target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBRARIES})
 
-configure_file(scr/brisk.cmake.in
+configure_file(src/brisk.cmake.in
   "${PROJECT_BINARY_DIR}/briskConfig.cmake" @ONLY)
 
 install(TARGETS ${PROJECT_NAME}
