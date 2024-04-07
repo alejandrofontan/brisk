@@ -29,6 +29,7 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include <agast/wrap-opencv.h>
 #include <agast/oast9-16.h>
 
 namespace agast {
@@ -40,27 +41,27 @@ int OastDetector9_16::cornerScore(const unsigned char* p) {
   int bmax = 255;
   int b_test = (bmax + bmin) / 2;
 
-  int_fast16_t offset0 = s_offset0;
-  int_fast16_t offset1 = s_offset1;
-  int_fast16_t offset2 = s_offset2;
-  int_fast16_t offset3 = s_offset3;
-  int_fast16_t offset4 = s_offset4;
-  int_fast16_t offset5 = s_offset5;
-  int_fast16_t offset6 = s_offset6;
-  int_fast16_t offset7 = s_offset7;
-  int_fast16_t offset8 = s_offset8;
-  int_fast16_t offset9 = s_offset9;
-  int_fast16_t offset10 = s_offset10;
-  int_fast16_t offset11 = s_offset11;
-  int_fast16_t offset12 = s_offset12;
-  int_fast16_t offset13 = s_offset13;
-  int_fast16_t offset14 = s_offset14;
-  int_fast16_t offset15 = s_offset15;
+  register int_fast16_t offset0 = s_offset0;
+  register int_fast16_t offset1 = s_offset1;
+  register int_fast16_t offset2 = s_offset2;
+  register int_fast16_t offset3 = s_offset3;
+  register int_fast16_t offset4 = s_offset4;
+  register int_fast16_t offset5 = s_offset5;
+  register int_fast16_t offset6 = s_offset6;
+  register int_fast16_t offset7 = s_offset7;
+  register int_fast16_t offset8 = s_offset8;
+  register int_fast16_t offset9 = s_offset9;
+  register int_fast16_t offset10 = s_offset10;
+  register int_fast16_t offset11 = s_offset11;
+  register int_fast16_t offset12 = s_offset12;
+  register int_fast16_t offset13 = s_offset13;
+  register int_fast16_t offset14 = s_offset14;
+  register int_fast16_t offset15 = s_offset15;
 
   while (1) {
-    const int cb = *p + b_test;
+    register const int cb = *p + b_test;
     //std::cout << offset0 << ".";
-    const int c_b = *p - b_test;
+    register const int c_b = *p - b_test;
     if (p[offset0] > cb)
       if (p[offset2] > cb)
         if (p[offset4] > cb)
@@ -1974,7 +1975,7 @@ int OastDetector9_16::cornerScore(const unsigned char* p) {
   }
 }
 
-int OastDetector9_16::cornerScore(cv::Mat& img, float x, float y, float scale) {
+int OastDetector9_16::cornerScore(agast::Mat& img, float x, float y, float scale) {
   // check boundary
   if (floor(x - 3.5 * scale) < 0)
     return 0;
@@ -1994,9 +1995,9 @@ int OastDetector9_16::cornerScore(cv::Mat& img, float x, float y, float scale) {
   accessor.setCenter(x, y, scale);
 
   while (1) {
-    const int cb = accessor(16) + b_test;
+    register const int cb = accessor(16) + b_test;
     //std::cout << offset0 << ".";
-    const int c_b = cb - 2 * b_test;
+    register const int c_b = cb - 2 * b_test;
     if (accessor(0) > cb)
       if (accessor(2) > cb)
         if (accessor(4) > cb)
@@ -3922,7 +3923,7 @@ unsigned char Oast9_16_PatternAccessor::operator()(unsigned int index) {
   // get the position
   const float xf = x_c_ + pattern_x[index] * scale_;
   const float yf = y_c_ + pattern_y[index] * scale_;
-  const cv::Mat& image = *img_;
+  const agast::Mat& image = *img_;
   const int& imagecols = image.cols;
 
   // get the sigma_half:

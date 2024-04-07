@@ -41,17 +41,17 @@
 
 namespace agast {
 void AgastDetector5_8::detect(const unsigned char* im,
-                              std::vector<cv::KeyPoint>& corners_all,
-                              const cv::Mat* /*thrmap*/) {
+                              std::vector<agast::KeyPoint>& corners_all,
+                              const agast::Mat* /*thrmap*/) {
   int total = 0;
   int nExpectedCorners = corners_all.capacity();
-  cv::KeyPoint h;
-  int x, y;
-  int xsizeB = xsize - 2;
-  int ysizeB = ysize - 1;
-  int_fast16_t offset0, offset1, offset2, offset3, offset4, offset5,
+  agast::KeyPoint h;
+  register int x, y;
+  register int xsizeB = xsize - 2;
+  register int ysizeB = ysize - 1;
+  register int_fast16_t offset0, offset1, offset2, offset3, offset4, offset5,
       offset6, offset7;
-  int width;
+  register int width;
 
   corners_all.resize(0);
 
@@ -73,9 +73,9 @@ void AgastDetector5_8::detect(const unsigned char* im,
         if (x > xsizeB)
           break;
         else {
-          const unsigned char* const p = im + y * width + x;
-          const int cb = *p + b;
-          const int c_b = *p - b;
+          register const unsigned char* const p = im + y * width + x;
+          register const int cb = *p + b;
+          register const int c_b = *p - b;
           if (p[offset0] > cb)
             if (p[offset2] > cb)
               if (p[offset3] > cb)
@@ -371,9 +371,9 @@ void AgastDetector5_8::detect(const unsigned char* im,
         if (x > xsizeB)
           break;
         else {
-          const unsigned char* const p = im + y * width + x;
-          const int cb = *p + b;
-          const int c_b = *p - b;
+          register const unsigned char* const p = im + y * width + x;
+          register const int cb = *p + b;
+          register const int c_b = *p - b;
           if (p[offset0] > cb)
             if (p[offset2] > cb)
               if (p[offset3] > cb)
@@ -684,8 +684,8 @@ void AgastDetector5_8::detect(const unsigned char* im,
           corners_all.reserve(nExpectedCorners);
         }
       }
-      cv::KeyPointX(h) = x;
-      cv::KeyPointY(h) = y;
+      agast::KeyPointX(h) = x;
+      agast::KeyPointY(h) = y;
       corners_all.push_back(h);
       total++;
       goto homogeneous;
@@ -698,8 +698,8 @@ void AgastDetector5_8::detect(const unsigned char* im,
           corners_all.reserve(nExpectedCorners);
         }
       }
-      cv::KeyPointX(h) = x;
-      cv::KeyPointY(h) = y;
+      agast::KeyPointX(h) = x;
+      agast::KeyPointY(h) = y;
       corners_all.push_back(h);
       total++;
       goto structured;
