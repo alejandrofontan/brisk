@@ -54,14 +54,14 @@ install(TARGETS ${PROJECT_NAME}
         ARCHIVE DESTINATION  ${CMAKE_INSTALL_PREFIX}/lib)
         
 install(DIRECTORY
-	"${PROJECT_SOURCE_DIR}/brisk/include/brisk"
-	"${PROJECT_SOURCE_DIR}/brisk/include/sse2neon"
+	"${PROJECT_SOURCE_DIR}/include/brisk"
+	"${PROJECT_SOURCE_DIR}/include/sse2neon"
 	"${PROJECT_SOURCE_DIR}/agast/include/agast"
         DESTINATION  ${CMAKE_INSTALL_PREFIX}/include
         FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp")
 
 install(DIRECTORY
-	"${PROJECT_SOURCE_DIR}/brisk/include/brisk/internal"
+	"${PROJECT_SOURCE_DIR}/include/brisk/internal"
         DESTINATION  ${CMAKE_INSTALL_PREFIX}/include/brisk
         FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp")
                                             
