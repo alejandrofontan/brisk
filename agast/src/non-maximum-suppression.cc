@@ -28,19 +28,18 @@
 //    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <stdlib.h>
-#include <agast/wrap-opencv.h>
 #include <agast/ast-detector.h>
 
 namespace agast {
 
-void AstDetector::nonMaximumSuppression(const std::vector<agast::KeyPoint>& corners_all,
-                                        std::vector<agast::KeyPoint>& corners_nms) {
+void AstDetector::nonMaximumSuppression(const std::vector<cv::KeyPoint>& corners_all,
+                                        std::vector<cv::KeyPoint>& corners_nms) {
   int currCorner_ind;
   int lastRow = 0, next_lastRow = 0;
-  std::vector<agast::KeyPoint>::const_iterator currCorner;
+  std::vector<cv::KeyPoint>::const_iterator currCorner;
   int lastRowCorner_ind = 0, next_lastRowCorner_ind = 0;
   std::vector<int>::iterator nmsFlags_p;
-  std::vector<agast::KeyPoint>::iterator currCorner_nms;
+  std::vector<cv::KeyPoint>::iterator currCorner_nms;
   int j;
   int numCorners_all = corners_all.size();
   int nMaxCorners = corners_nms.capacity();
@@ -75,23 +74,23 @@ void AstDetector::nonMaximumSuppression(const std::vector<agast::KeyPoint>& corn
     int t;
 
     // Check above.
-    if (lastRow + 1 < agast::KeyPointY(*currCorner)) {
+    if (lastRow + 1 < cv::KeyPointY(*currCorner)) {
       lastRow = next_lastRow;
       lastRowCorner_ind = next_lastRowCorner_ind;
     }
-    if (next_lastRow != agast::KeyPointY(*currCorner)) {
-      next_lastRow = agast::KeyPointY(*currCorner);
+    if (next_lastRow != cv::KeyPointY(*currCorner)) {
+      next_lastRow = cv::KeyPointY(*currCorner);
       next_lastRowCorner_ind = currCorner_ind;
     }
-    if (lastRow + 1 == agast::KeyPointY(*currCorner)) {
+    if (lastRow + 1 == cv::KeyPointY(*currCorner)) {
       // Find the corner above the current one.
-      while ((agast::KeyPointX(corners_all[lastRowCorner_ind]) <
-          agast::KeyPointX(*currCorner))
-          && (agast::KeyPointY(corners_all[lastRowCorner_ind]) == lastRow))
+      while ((cv::KeyPointX(corners_all[lastRowCorner_ind]) <
+          cv::KeyPointX(*currCorner))
+          && (cv::KeyPointY(corners_all[lastRowCorner_ind]) == lastRow))
         lastRowCorner_ind++;
 
-      if ((agast::KeyPointX(corners_all[lastRowCorner_ind]) ==
-          agast::KeyPointX(*currCorner))
+      if ((cv::KeyPointX(corners_all[lastRowCorner_ind]) ==
+          cv::KeyPointX(*currCorner))
           && (lastRowCorner_ind != currCorner_ind)) {
         int t = lastRowCorner_ind;
         while (nmsFlags[t] != -1)  // Find the maximum in this block.
@@ -106,9 +105,9 @@ void AstDetector::nonMaximumSuppression(const std::vector<agast::KeyPoint>& corn
 
     // Check left.
     t = currCorner_ind - 1;
-    if ((currCorner_ind != 0) && (agast::KeyPointY(corners_all[t]) ==
-        agast::KeyPointY(*currCorner))
-        && (agast::KeyPointX(corners_all[t]) + 1 == agast::KeyPointX(*currCorner))) {
+    if ((currCorner_ind != 0) && (cv::KeyPointY(corners_all[t]) ==
+        cv::KeyPointY(*currCorner))
+        && (cv::KeyPointX(corners_all[t]) + 1 == cv::KeyPointX(*currCorner))) {
       int currCornerMaxAbove_ind = nmsFlags[currCorner_ind];
 
       while (nmsFlags[t] != -1)  // Find the maximum in that area.

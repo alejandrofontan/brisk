@@ -35,24 +35,23 @@
 
 #include <stdint.h>																			
 #include <stdlib.h>
-#include <agast/wrap-opencv.h>
 #include <agast/oast9-16.h>
 
 namespace agast {
 
 void OastDetector9_16::detect(const unsigned char* im,
-                              std::vector<agast::KeyPoint>& corners_all,
-                              const agast::Mat* thrmap) {
+                              std::vector<cv::KeyPoint>& corners_all,
+                              const cv::Mat* thrmap) {
   int total = 0;
   int nExpectedCorners = corners_all.capacity();
-  agast::KeyPoint h;
-  register int x, y;
-  register int xsizeB = xsize - 4;
-  register int ysizeB = ysize - 3;
-  register int_fast16_t offset0, offset1, offset2, offset3, offset4, offset5,
+  cv::KeyPoint h;
+  int x, y;
+  int xsizeB = xsize - 4;
+  int ysizeB = ysize - 3;
+  int_fast16_t offset0, offset1, offset2, offset3, offset4, offset5,
       offset6, offset7, offset8, offset9, offset10, offset11, offset12,
       offset13, offset14, offset15;
-  register int width;
+  int width;
 
   corners_all.resize(0);
 
@@ -95,9 +94,9 @@ void OastDetector9_16::detect(const unsigned char* im,
         } else
           b2 = b;
 
-        register const unsigned char* const p = im + y * width + x;
-        register const int cb = *p + b2;
-        register const int c_b = *p - b2;
+        const unsigned char* const p = im + y * width + x;
+        const int cb = *p + b2;
+        const int c_b = *p - b2;
         if (p[offset0] > cb)
           if (p[offset2] > cb)
             if (p[offset4] > cb)
@@ -1850,8 +1849,8 @@ void OastDetector9_16::detect(const unsigned char* im,
           corners_all.reserve(nExpectedCorners);
         }
       }
-      agast::KeyPointX(h) = x;
-      agast::KeyPointY(h) = y;
+      cv::KeyPointX(h) = x;
+      cv::KeyPointY(h) = y;
       corners_all.push_back(h);
       total++;
     }

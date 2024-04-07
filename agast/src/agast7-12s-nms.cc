@@ -29,7 +29,6 @@
 
 #include <stdint.h>
 #include <stdlib.h>
-#include <agast/wrap-opencv.h>
 #include <agast/agast7-12s.h>
 
 namespace agast {
@@ -41,22 +40,22 @@ int AgastDetector7_12s::cornerScore(const unsigned char* p) {
   int bmax = 255;
   int b_test = (bmax + bmin) / 2;
 
-  register int_fast16_t offset0 = s_offset0;
-  register int_fast16_t offset1 = s_offset1;
-  register int_fast16_t offset2 = s_offset2;
-  register int_fast16_t offset3 = s_offset3;
-  register int_fast16_t offset4 = s_offset4;
-  register int_fast16_t offset5 = s_offset5;
-  register int_fast16_t offset6 = s_offset6;
-  register int_fast16_t offset7 = s_offset7;
-  register int_fast16_t offset8 = s_offset8;
-  register int_fast16_t offset9 = s_offset9;
-  register int_fast16_t offset10 = s_offset10;
-  register int_fast16_t offset11 = s_offset11;
+  int_fast16_t offset0 = s_offset0;
+  int_fast16_t offset1 = s_offset1;
+  int_fast16_t offset2 = s_offset2;
+  int_fast16_t offset3 = s_offset3;
+  int_fast16_t offset4 = s_offset4;
+  int_fast16_t offset5 = s_offset5;
+  int_fast16_t offset6 = s_offset6;
+  int_fast16_t offset7 = s_offset7;
+  int_fast16_t offset8 = s_offset8;
+  int_fast16_t offset9 = s_offset9;
+  int_fast16_t offset10 = s_offset10;
+  int_fast16_t offset11 = s_offset11;
 
   while (1) {
-    register const int cb = *p + b_test;
-    register const int c_b = *p - b_test;
+    const int cb = *p + b_test;
+    const int c_b = *p - b_test;
     if (p[offset0] > cb)
       if (p[offset5] > cb)
         if (p[offset2] < c_b)
