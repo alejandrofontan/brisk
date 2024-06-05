@@ -93,10 +93,10 @@ void BriskScaleSpace::ConstructPyramid(const cv::Mat& image,
 
   for (uint8_t i = 2; i < octaves2; i += 2) {
     pyramid_.push_back(
-        BriskLayer(pyramid_[i - 2], BriskLayer::CommonParams::HALFSAMPLE,
+        BriskLayer(pyramid_[i - 1], BriskLayer::CommonParams::TWOTHIRDSAMPLE,
                    (kDefaultUpperThreshold), (overwrite_lower_thres)));
     pyramid_.push_back(
-        BriskLayer(pyramid_[i - 1], BriskLayer::CommonParams::HALFSAMPLE,
+        BriskLayer(pyramid_[i], BriskLayer::CommonParams::TWOTHIRDSAMPLE,
                    (kDefaultUpperThreshold), (overwrite_lower_thres)));
   }
 }
