@@ -1,8 +1,14 @@
 cmake_minimum_required(VERSION 3.16)
 project(brisk)
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -O3 -march=native")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O3 -march=native")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -O3")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O3")
+# Off by default so the library runs on any CPU of the target architecture (e.g. the conda package);
+# turn it on for a local build tuned to this machine.
+option(BRISK_NATIVE "Optimise for the build machine's CPU (-march=native)" OFF)
+if(BRISK_NATIVE)
+  add_compile_options(-march=native)
+endif()
 set (CMAKE_CXX_STANDARD 17)
 
 add_compile_options(-Wextra -Wpedantic)
