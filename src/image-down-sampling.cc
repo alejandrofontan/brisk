@@ -47,7 +47,7 @@
 #include <brisk/internal/macros.h>
 
 namespace {
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
 inline uint8x16_t shiftrightonebyte(uint8x16_t& data) {
   uint64x2_t newval = vreinterpretq_u64_u8(data);
   uint64x2_t shiftval = vshrq_n_u64(newval, 8);
@@ -61,7 +61,7 @@ inline uint8x16_t shiftrightonebyte(uint8x16_t& data) {
 
 namespace brisk {
 void Halfsample16(const cv::Mat& srcimg, cv::Mat& dstimg) {
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
   static_cast<void>(srcimg);
   static_cast<void>(dstimg);
   throw std::runtime_error("HalfSample16 not implemented for NEON.");
@@ -163,7 +163,7 @@ if(srcimg.cols / 2 != dstimg.cols){
 if(srcimg.rows / 2 != dstimg.rows){
   throw std::runtime_error("srcimg.rows / 2 != dstimg.rows");
 }
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
   // Mask needed later:
   uint8_t tmpmask[16] = {0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF,
     0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00};
@@ -409,7 +409,7 @@ if(srcimg.rows / 2 != dstimg.rows){
 }
 
 void Twothirdsample16(const cv::Mat& srcimg, cv::Mat& dstimg) {
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
   static_cast<void>(srcimg);
   static_cast<void>(dstimg);
   throw std::runtime_error("Twothirdsample16 not implemented for NEON");
@@ -588,7 +588,7 @@ void Twothirdsample8(const cv::Mat& srcimg, cv::Mat& dstimg) {
   unsigned int row_dest = 0;
   int hsize = srcimg.cols / 15;
 
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
   // masks:
     const uint8_t tmpmask1[16] = {1, 0x80, 4, 0x80, 7, 0x80, 10, 0x80, 13, 0x80,
       0x80, 0x80, 0x80, 0x80, 0x80, 0x80};

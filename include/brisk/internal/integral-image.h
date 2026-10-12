@@ -46,7 +46,7 @@
 #ifndef INTERNAL_INTEGRAL_IMAGE_H_
 #define INTERNAL_INTEGRAL_IMAGE_H_
 
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
 #include <arm_neon.h>
 #else
 #include <emmintrin.h>
@@ -94,7 +94,7 @@ void IntegralImage8(const cv::Mat& src, cv::Mat* dest) {
       const int s2 = s1 + _src[x2];
       const int s3 = s2 + _src[x3];
       s = s3;
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
       int tmp1[4] = {s0, s1, s2, s3};
       int32x4_t  __src0 = vld1q_s32(tmp1);
       int32x4_t    __sum = vld1q_s32(&sum[x - sumstep]);
@@ -114,7 +114,7 @@ void IntegralImage8(const cv::Mat& src, cv::Mat* dest) {
       const int s2_1 = s1_1 + __src[x2];
       const int s3_1 = s2_1 + __src[x3];
       ss = s3_1;
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
       int tmp2[4] = {s0_1, s1_1, s2_1, s3_1};
       __src0 = vld1q_s32(tmp2);
       __sum = vaddq_s32(__src0, __sum);
@@ -144,7 +144,7 @@ void IntegralImage8(const cv::Mat& src, cv::Mat* dest) {
       const int s2 = s1 + _src[x + 2];
       const int s3 = s2 + _src[x + 3];
       s = s3;
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
       int tmp3[4] = {s0, s1, s2, s3};
       int32x4_t __src0 = vld1q_s32(tmp3);
       int32x4_t  __sum = vld1q_s32(&sum[x - sumstep]);
@@ -202,7 +202,7 @@ void IntegralImage16(const cv::Mat& src, cv::Mat* dest) {
       float s2 = s1 + _src[x2] * cvtScale;
       float s3 = s2 + _src[x3] * cvtScale;
       s = s3;
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
       float tmp1[4] = {s0, s1, s2, s3};
       float32x4_t  __src0 = vld1q_f32(tmp1);
 

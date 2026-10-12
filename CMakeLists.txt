@@ -13,11 +13,20 @@ set (CMAKE_CXX_STANDARD 17)
 
 add_compile_options(-Wextra -Wpedantic)
 
-if(${CMAKE_HOST_SYSTEM_PROCESSOR} MATCHES "arm*")
-  message(STATUS "ARM processor detected, will attempt to use NEON.")
+# SIMD: the SSE code paths are the reference; on ARM they run through include/sse2neon (sse2neon v1.8.0, MIT) plus
+# the native NEON paths behind `defined(__ARM_NEON) || defined(__ARM_NEON__)` (AArch64 compilers define __ARM_NEON,
+# 32-bit ARM ones __ARM_NEON__; Apple's arm64 clang defines both). CMAKE_SYSTEM_PROCESSOR is the target, which is
+# what matters when cross-compiling (conda packages).
+# -flax-vector-conversions: the NEON paths pass int16x8_t / uint8x16_t values to sse2neon's __m128i (an int64x2_t);
+# clang allows such same-size integer vector conversions by default, GCC only with this flag.
+if(CMAKE_SYSTEM_PROCESSOR MATCHES "^(aarch64|arm64|ARM64)$")
+  message(STATUS "AArch64 target: NEON is part of the base ISA, SSE intrinsics through sse2neon.")
+  add_definitions(-DHAVE_OPENCV -Wall -pedantic -flax-vector-conversions -fPIC)
+elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "^arm")
+  message(STATUS "32-bit ARM target: NEON through -mfpu=neon, SSE intrinsics through sse2neon.")
   add_definitions(-mfpu=neon -DHAVE_OPENCV -Wall -pedantic -flax-vector-conversions -fPIC)
 else()
-  message(STATUS "Assuming SSE instructions available.")
+  message(STATUS "x86-64 target: SSSE3 instructions assumed.")
   add_definitions(-mssse3 -DHAVE_OPENCV -Wall -pedantic -fPIC)
 endif()
 

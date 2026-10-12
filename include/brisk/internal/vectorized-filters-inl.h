@@ -46,7 +46,7 @@
 #ifndef INTERNAL_VECTORIZED_FILTERS_INL_H_
 #define INTERNAL_VECTORIZED_FILTERS_INL_H_
 
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
 #include <arm_neon.h>
 #include <arm_neon.h>
 #else
@@ -84,7 +84,7 @@ __inline__ void Filter2D16S(cv::Mat& src, cv::Mat& dst, cv::Mat& kernel) {  // N
           const char m = kernel.at<int16_t>(y, x);
           if (m == 0)
             continue;
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
           int16x8_t mult ={m, m, m, m, m, m, m, m};
 #else //__ARM_NEON__
           __m128i mult = _mm_set_epi16(m, m, m, m, m, m, m, m);
@@ -127,7 +127,7 @@ __inline__ void Filter2D8U(cv::Mat& src, cv::Mat& dst, cv::Mat& kernel) {  // NO
   const unsigned int stride = src.cols;
 
  // Masks.
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
   // different order of initialisation
   uint8x16_t mask_hi = {0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF,
                         0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF};
@@ -143,7 +143,7 @@ __inline__ void Filter2D8U(cv::Mat& src, cv::Mat& dst, cv::Mat& kernel) {  // NO
   for (unsigned int i = 0; i < maxI; ++i) {
     bool end = false;
     for (unsigned int j = 0; j < maxJ;) {
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
       int16x8_t result_hi = {0, 0, 0, 0, 0, 0, 0, 0};
       int16x8_t result_lo = {0, 0, 0, 0, 0, 0, 0, 0};
 #else //__ARM_NEON__
@@ -157,7 +157,7 @@ __inline__ void Filter2D8U(cv::Mat& src, cv::Mat& dst, cv::Mat& kernel) {  // NO
           const char m = kernel.at<char>(y, x);
           if (m == 0)
             continue;
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
           int16x8_t mult = {m, m, m, m, m, m, m, m};
 #else //__ARM_NEON__
           __m128i mult = _mm_set_epi16(m, m, m, m, m, m, m, m);

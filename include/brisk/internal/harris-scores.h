@@ -48,7 +48,7 @@
 
 #include <brisk/brisk.h>
 
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
 #include <sse2neon/SSE2NEON.h>
 #endif
 
