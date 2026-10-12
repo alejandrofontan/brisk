@@ -43,7 +43,7 @@
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
 #include <arm_neon.h>
 #include <sse2neon/SSE2NEON.h>
 #else
@@ -140,7 +140,7 @@ void HarrisScoreCalculator::GetCovarEntries(const cv::Mat& src, cv::Mat& dxdx,
   const unsigned int stride = src.cols;
 
  // Masks.
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
   // different order of initialisation
   uint8x16_t mask_hi = {0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF,
                         0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF};
@@ -166,7 +166,7 @@ void HarrisScoreCalculator::GetCovarEntries(const cv::Mat& src, cv::Mat& dxdx,
         for (unsigned int y = 0; y < Y; ++y) {
           const int16_t& m_dx = kernel.at<int16_t>(y, x);
           const int16_t& m_dy = kernel.at<int16_t>(x, y);
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
           int16x8_t mult_dx = {m_dx, m_dx, m_dx, m_dx, m_dx, m_dx,
                                           m_dx, m_dx};
           int16x8_t mult_dy = {m_dy, m_dy, m_dy, m_dy, m_dy, m_dy,

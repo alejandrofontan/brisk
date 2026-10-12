@@ -46,7 +46,7 @@
 #ifndef INTERNAL_HARRIS_SCORE_CALCULATOR_FLOAT_H_
 #define INTERNAL_HARRIS_SCORE_CALCULATOR_FLOAT_H_
 
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
 #include <sse2neon/SSE2NEON.h>
 #else
 #include <emmintrin.h>

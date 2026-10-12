@@ -45,7 +45,7 @@
 
 #ifndef INTERNAL_HAMMING_H_
 #define INTERNAL_HAMMING_H_
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
 #include <arm_neon.h>
 #else
 #include <emmintrin.h>
@@ -62,7 +62,7 @@ class  Hamming {
  public:
   Hamming() { }
 
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
   static __inline__ uint32_t NEONPopcntofXORed(const uint8x16_t* signature1,
                                                const uint8x16_t* signature2,
                                                const int numberOf128BitWords);
@@ -105,7 +105,7 @@ class  Hamming {
   // This will count the bits in a ^ b.
   ResultType operator()(
       const unsigned char* a, const unsigned char* b, const int size) const {
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
     return NEONPopcntofXORed(reinterpret_cast<const uint8x16_t*>(a),
                              reinterpret_cast<const uint8x16_t*>(b),
                              size / 16);

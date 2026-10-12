@@ -47,7 +47,7 @@
 #include <brisk/internal/image-down-sampling.h>
 #include <stdexcept>
 
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
 #include <arm_neon.h>
 #else
 #include <emmintrin.h>
@@ -305,7 +305,7 @@ void BriskLayer::CalculateThresholdMap() {
     while (x + 16 < img_.cols - 1) {
       // Access.
       unsigned char* p = img_.data + x - 1 + (y - 1) * rowstride;
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
       // NEON version.
       uint8x16_t v_1_1 = vld1q_u8(reinterpret_cast<const uint8_t*>(p));
       p++;
@@ -400,7 +400,7 @@ void BriskLayer::CalculateThresholdMap() {
     while (x + 16 < img_.cols - 3) {
       // Access.
       unsigned char* p = img_.data + x + y * rowstride;
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
       // NEON version //
       uint8x16_t v00 = vld1q_u8(reinterpret_cast<const uint8_t*>(p));
       p -= 2 + 2 * rowstride;

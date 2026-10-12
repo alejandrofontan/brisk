@@ -46,7 +46,7 @@
 #ifndef INTERNAL_IMAGE_DOWN_SAMPLING_H_
 #define INTERNAL_IMAGE_DOWN_SAMPLING_H_
 
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
 #include <arm_neon.h>
 #else
 #include <emmintrin.h>

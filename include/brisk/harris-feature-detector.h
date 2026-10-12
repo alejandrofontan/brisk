@@ -51,7 +51,7 @@
 
 #include <brisk/internal/macros.h>
 #include <brisk/internal/vectorized-filters.h>
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
 #include <sse2neon/SSE2NEON.h>
 #endif
 namespace brisk {

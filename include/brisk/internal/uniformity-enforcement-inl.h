@@ -89,7 +89,7 @@ void EnforceKeyPointUniformity(const cv::Mat& LUT, double radius,
     // Masks.
     const float nsc = 0.99f * nsc1;
     for (int y = 0; y < 2 * 16 - 1; ++y) {
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
       uint8x16_t mem1 = vld1q_u8(reinterpret_cast<const uint8_t*>(
               &occupancy.at<uint8_t>(cy + y - 15, cx - 15)));
       uint8x16_t mem2 = vld1q_u8(reinterpret_cast<const uint8_t*>(

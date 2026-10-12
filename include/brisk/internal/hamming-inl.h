@@ -66,7 +66,7 @@ __declspec(align(16)) static const uint8_t POPCOUNT_4bit[16] = {0, 1, 1, 2,
 static const __m128i shiftval = _mm_set_epi32(0, 0, 0, 4);
 #endif  // _MSC_VER
 
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
 __inline__ uint32_t Hamming::NEONPopcntofXORed(const uint8x16_t* signature1,
                                                const uint8x16_t* signature2,
                                                const int numberOf128BitWords) {

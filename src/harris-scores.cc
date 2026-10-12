@@ -43,7 +43,7 @@
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
 #include <arm_neon.h>
 #include <sse2neon/SSE2NEON.h>
 #else
@@ -70,7 +70,7 @@ void HarrisScoresSSE(const cv::Mat& src, cv::Mat& scores) {
   DyDy1 = new int16_t[rows * cols];
 
   // Masks.
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
   // different order of initialisation
   uint8x16_t mask_hi = {0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF,
                         0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF, 0x00, 0xFF};

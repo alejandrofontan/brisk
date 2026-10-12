@@ -46,7 +46,7 @@
 #ifndef INTERNAL_SCORE_CALCULATOR_H_
 #define INTERNAL_SCORE_CALCULATOR_H_
 
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
 #include <arm_neon.h>
 #include <sse2neon/SSE2NEON.h>
 #else

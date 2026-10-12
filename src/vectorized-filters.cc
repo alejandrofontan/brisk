@@ -42,7 +42,7 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
 #include <arm_neon.h>
 #else
 #include <emmintrin.h>
@@ -53,7 +53,7 @@
 #include <brisk/internal/vectorized-filters.h>
 
 namespace brisk {
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
   // Not implemented.
 #else
 void FilterGauss3by316S(cv::Mat& src, cv::Mat& dst) {  // NOLINT
@@ -126,7 +126,7 @@ void FilterGauss3by316S(cv::Mat& src, cv::Mat& dst) {  // NOLINT
 }
 #endif  // __ARM_NEON__
 
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
   // Not implemented.
 #else
 void FilterGauss3by332F(cv::Mat& src, cv::Mat& dst) {  // NOLINT
@@ -183,7 +183,7 @@ void FilterGauss3by332F(cv::Mat& src, cv::Mat& dst) {  // NOLINT
 }
 #endif  // __ARM_NEON__
 
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
 // Not implemented.
 #else
 void FilterBox3by316S(cv::Mat& src, cv::Mat& dst) {  // NOLINT

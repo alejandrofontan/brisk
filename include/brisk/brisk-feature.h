@@ -57,7 +57,7 @@
 #include <brisk/harris-score-calculator.h>
 #include <brisk/scale-space-feature-detector.h>
 
-#ifdef __ARM_NEON__
+#if defined(__ARM_NEON) || defined(__ARM_NEON__)
 #include <sse2neon/SSE2NEON.h>
 #endif
 
